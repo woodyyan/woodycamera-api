@@ -1,6 +1,7 @@
 package com.woody.woodycameraapi.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.woody.woodycameraapi.entity.UrgeEntity;
 import com.woody.woodycameraapi.model.UrgeResponse;
 import com.woody.woodycameraapi.util.CosApi;
@@ -16,7 +17,8 @@ public class UrgeService {
     }
 
     public UrgeResponse urgeOnce() {
-        UrgeEntity urge = cosApi.download(URGE_KEY);
+        String result = cosApi.download(URGE_KEY);
+        UrgeEntity urge = JSONObject.parseObject(result, UrgeEntity.class);
         urge.addOne();
         cosApi.upload(JSON.toJSONString(urge), URGE_KEY);
         return UrgeResponse.builder().count(urge.getCount()).build();

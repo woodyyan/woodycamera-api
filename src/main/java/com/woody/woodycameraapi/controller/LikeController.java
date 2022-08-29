@@ -2,10 +2,7 @@ package com.woody.woodycameraapi.controller;
 
 import com.woody.woodycameraapi.model.LikeResponse;
 import com.woody.woodycameraapi.service.LikeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/like")
@@ -17,8 +14,8 @@ public class LikeController {
     }
 
     @PostMapping
-    public LikeResponse addLike() {
-        return likeService.addLike();
+    public LikeResponse addLike(@RequestParam String imageId) {
+        return likeService.addLike(imageId);
     }
 
     @GetMapping

@@ -1,0 +1,12 @@
+{
+  "likeItems": [
+    {
+      "count": 2,
+      "imageId": "imageid"
+    },
+    {
+      "count": 3,
+      "imageId": "imageid"
+    }
+  ]
+}

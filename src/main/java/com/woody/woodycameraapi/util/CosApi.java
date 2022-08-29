@@ -6,8 +6,6 @@ import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
-import com.alibaba.fastjson2.JSONObject;
-import com.woody.woodycameraapi.entity.UrgeEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -55,7 +53,7 @@ public class CosApi {
         return putObjectResult.getETag();
     }
 
-    public UrgeEntity download(String key) {
+    public String download(String key) {
         setupClient();
         // Bucket的命名格式为 BucketName-APPID ，此处填写的存储桶名称必须为此格式
         // 指定文件在 COS 上的路径，即对象键。例如对象键为folder/picture.jpg，则表示下载的文件 picture.jpg 在 folder 路径下
@@ -78,7 +76,7 @@ public class CosApi {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-        return JSONObject.parseObject(result, UrgeEntity.class);
+        return result;
 
         // 方法2 下载文件到本地的路径，例如 D 盘的某个目录
 //        String outputFilePath = "exampleobject";

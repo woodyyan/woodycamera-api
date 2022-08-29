@@ -1,15 +1,17 @@
-package com.woody.woodycameraapi.model;
+package com.woody.woodycameraapi.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class LikeResponse {
+@AllArgsConstructor
+public class LikeItem {
     private String imageId;
     private int count;
+
+    public void addOne() {
+        count += 1;
+    }
 }
