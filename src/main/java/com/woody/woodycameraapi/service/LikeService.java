@@ -4,11 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.woody.woodycameraapi.entity.LikeEntity;
 import com.woody.woodycameraapi.entity.LikeItem;
+import com.woody.woodycameraapi.entity.LikesResponse;
 import com.woody.woodycameraapi.model.LikeResponse;
-import com.woody.woodycameraapi.model.UrgeResponse;
 import com.woody.woodycameraapi.util.CosApi;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,10 @@ public class LikeService {
         return LikeResponse.builder().count(count).imageId(imageId).build();
     }
 
-    public LikeResponse getLike() {
-        return null;
+    public LikesResponse getLike(List<String> imageIds) {
+        String result = cosApi.download(LIKE_KEY);
+        LikeEntity like = JSONObject.parseObject(result, LikeEntity.class);
+        List<LikeItem> likeItems = like.getLikeItems().stream().filter(it -> imageIds.contains(it.getImageId())).toList();
+        return LikesResponse.builder().imageItems(likeItems).build();
     }
 }
