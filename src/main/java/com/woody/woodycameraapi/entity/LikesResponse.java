@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 @Builder
 public class LikesResponse {
-    private List<LikeItem> imageItems = new ArrayList<>();
+    private List<LikeItem> imageItems;
 }
