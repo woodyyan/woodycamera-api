@@ -2,11 +2,42 @@ plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
+	id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
 }
 
 group = 'com.woody'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+docker {
+	if (project.hasProperty('dockerUrl')) {
+		url = project.getProperties().get('dockerUrl') // docker地址
+	}
+	def registryHost = project.getProperties().get('registryHost'); // 镜像仓库地址
+	def registryCredentialUrl = project.getProperties().get('registryCredentialUrl'); // 镜像仓库验证地址
+	def registryCredentialUsername = project.getProperties().get('registryCredentialUsername'); // 镜像仓库验证用户名
+	def registryCredentialPassword = project.getProperties().get('registryCredentialPassword'); // 镜像仓库验证密码
+	def imageName = "${project.archivesBaseName}"
+	if (registryHost) {
+		imageName = "${registryHost}/${imageName}"
+	}
+	springBootApplication {
+		baseImage = 'openjdk:11'
+		ports = [8081]
+		images = ["${imageName}:${version}", "${imageName}:latest"]
+		jvmArgs = ["-Duser.timezone=Asia/Guangzhou", '-Dspring.profiles.active=prod']
+	}
+	if (registryCredentialUrl && registryCredentialUsername && registryCredentialPassword) {
+		println(registryCredentialUrl);
+		println(registryCredentialUsername);
+		println(registryCredentialPassword);
+		registryCredentials {
+			url = registryCredentialUrl
+			username = registryCredentialUsername
+			password = registryCredentialPassword
+		}
+	}
+}
 
 repositories {
 	mavenCentral()
