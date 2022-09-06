@@ -28,8 +28,6 @@ public class CosApi {
 
     public void setupClient() {
         if (cosClient == null) {
-            System.out.println(secretId);
-            System.out.println(secretKey);
             COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
             // 2 设置 bucket 的地域, COS 地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
             // clientConfig 中包含了设置 region, https(默认 http), 超时, 代理等 set 方法, 使用可参见源码或者常见问题 Java SDK 部分。
