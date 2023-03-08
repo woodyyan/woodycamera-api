@@ -11,14 +11,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
-@Table(name = "model")
-public class ModelEntity {
+@Table(name = "image")
+public class ImageEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private int index;
-    private String modelName;
-    private String city;
-    private String date;
-    private String Tags;
+    private Long modelId;
+    private String url;
 }
