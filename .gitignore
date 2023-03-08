@@ -30,11 +30,14 @@ out/
 /nbproject/private/
 /nbbuild/
 /dist/
+/data
 /nbdist/
 /.nb-gradle/
 
 ### VS Code ###
 .vscode/
+
+.DS_Store
 
 src/main/resources/application.yml
 src/main/resources/application-prod.yml

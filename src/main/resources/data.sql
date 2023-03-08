@@ -1,0 +1,14 @@
+-- DROP TABLE IF EXISTS model;
+--
+-- CREATE TABLE model (
+--                               id INT AUTO_INCREMENT  PRIMARY KEY,
+--                               index INT DEFAULT 0 NOT NULL,
+--                               model_name VARCHAR(50) NOT NULL,
+--                               city VARCHAR(50) NOT NULL,
+--                               date VARCHAR(50) DEFAULT NULL
+-- );
+--
+-- INSERT INTO model (index, model_name, city, date) VALUES
+--                                                              (1, 'Dangote', '深圳', '2022-1-1'),
+--                                                              (2, 'Woody', '成都', '2022-9-3'),
+--                                                              (3, 'Tom', '武汉', '2023-3-6');
