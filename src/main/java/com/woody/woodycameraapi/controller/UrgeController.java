@@ -2,6 +2,7 @@ package com.woody.woodycameraapi.controller;
 
 import com.woody.woodycameraapi.model.UrgeResponse;
 import com.woody.woodycameraapi.service.UrgeService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,5 +19,15 @@ public class UrgeController {
     @PostMapping
     public UrgeResponse urgeOnce() {
         return urgeService.urgeOnce();
+    }
+
+    @GetMapping
+    public UrgeResponse getUrgeCount() {
+        return urgeService.getUrgeCount();
+    }
+
+    @PostMapping("/clear")
+    public UrgeResponse clearUrge() {
+        return urgeService.clearUrge();
     }
 }

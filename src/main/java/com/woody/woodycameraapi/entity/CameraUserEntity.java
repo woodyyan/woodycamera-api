@@ -13,7 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @Table(name = "camera_user")
-public class UserEntity {
+public class CameraUserEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
