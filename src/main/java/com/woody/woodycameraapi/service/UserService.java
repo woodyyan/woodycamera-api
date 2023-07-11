@@ -1,14 +1,11 @@
 package com.woody.woodycameraapi.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.woody.woodycameraapi.entity.UserEntity;
-import com.woody.woodycameraapi.entity.UserInfo;
 import com.woody.woodycameraapi.exception.Error;
 import com.woody.woodycameraapi.exception.ErrorException;
 import com.woody.woodycameraapi.model.UserRequest;
 import com.woody.woodycameraapi.model.UserResponse;
-import com.woody.woodycameraapi.util.CosApi;
+import com.woody.woodycameraapi.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -16,37 +13,38 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private static final String USER_KEY = "database/user.json";
-    private final CosApi cosApi;
+    private final UserRepository userRepository;
 
-    public UserService(CosApi cosApi) {
-        this.cosApi = cosApi;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public UserResponse createUser(UserRequest userRequest) {
-        String result = cosApi.download(USER_KEY);
-        UserEntity userEntity = JSONObject.parseObject(result, UserEntity.class);
-        Optional<UserInfo> first = userEntity.getUsers().stream().filter(it -> it.getUserId().equals(userRequest.getUserId())).findFirst();
-        if (first.isPresent()) {
-            UserInfo userInfo = first.get();
-            userInfo.setFamilyName(userRequest.getFamilyName());
-            userInfo.setGivenName(userRequest.getGivenName());
-            userInfo.setEmail(userRequest.getEmail());
+        Optional<UserEntity> userEntity = userRepository.findByUserId(userRequest.getUserId());
+        if (userEntity.isPresent()) {
+            UserEntity existing = userEntity.get();
+            existing.setUserId(userRequest.getUserId());
+            existing.setEmail(userRequest.getEmail());
+            existing.setFamilyName(userRequest.getFamilyName());
+            existing.setGivenName(userRequest.getGivenName());
+            userRepository.save(existing);
+            return new UserResponse(userRequest.getEmail(), userRequest.getFamilyName(), userRequest.getGivenName(), userRequest.getUserId());
         } else {
-            UserInfo userInfo = new UserInfo(userRequest.getEmail(), userRequest.getFamilyName(), userRequest.getGivenName(), userRequest.getUserId());
-            userEntity.getUsers().add(userInfo);
+            UserEntity newUser = new UserEntity();
+            newUser.setUserId(userRequest.getUserId());
+            newUser.setEmail(userRequest.getEmail());
+            newUser.setFamilyName(userRequest.getFamilyName());
+            newUser.setGivenName(userRequest.getGivenName());
+            UserEntity savedUser = userRepository.save(newUser);
+            return new UserResponse(savedUser.getEmail(), savedUser.getFamilyName(), savedUser.getGivenName(), savedUser.getUserId());
         }
-        cosApi.upload(JSON.toJSONString(userEntity), USER_KEY);
-        return new UserResponse(userRequest.getEmail(), userRequest.getFamilyName(), userRequest.getGivenName(), userRequest.getUserId());
     }
 
     public UserResponse getUser(String userId) {
-        String result = cosApi.download(USER_KEY);
-        UserEntity userEntity = JSONObject.parseObject(result, UserEntity.class);
-        Optional<UserInfo> first = userEntity.getUsers().stream().filter(it -> it.getUserId().equals(userId)).findFirst();
-        if (first.isPresent()) {
-            UserInfo userInfo = first.get();
-            return new UserResponse(userInfo.getEmail(), userInfo.getFamilyName(), userInfo.getGivenName(), userInfo.getUserId());
+        Optional<UserEntity> entity = userRepository.findByUserId(userId);
+        if (entity.isPresent()) {
+            UserEntity user = entity.get();
+            return new UserResponse(user.getEmail(), user.getFamilyName(), user.getGivenName(), user.getUserId());
         }
         throw new ErrorException(HttpStatus.NOT_FOUND, new Error("Not Found", "User Id Not Found"));
     }
