@@ -1,15 +1,21 @@
 package com.woody.woodycameraapi.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "like_image")
 public class LikeEntity {
-    private List<LikeItem> likeItems = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    private String userId;
+    private String imageId;
 }

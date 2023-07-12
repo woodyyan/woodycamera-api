@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LikeResponse {
+public class LikeRequest {
     private String userId;
     private String imageId;
 }

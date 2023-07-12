@@ -9,9 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LikeItem {
     private String imageId;
-    private int count;
-
-    public void addOne() {
-        count += 1;
-    }
+    private Long count;
 }

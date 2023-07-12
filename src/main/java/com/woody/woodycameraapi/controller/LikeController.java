@@ -1,11 +1,12 @@
 package com.woody.woodycameraapi.controller;
 
 import com.woody.woodycameraapi.entity.LikesResponse;
+import com.woody.woodycameraapi.model.LikeRequest;
 import com.woody.woodycameraapi.model.LikeResponse;
+import com.woody.woodycameraapi.model.LikesRequest;
 import com.woody.woodycameraapi.service.LikeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/like")
@@ -17,12 +18,12 @@ public class LikeController {
     }
 
     @PostMapping
-    public LikeResponse addLike(@RequestParam String imageId) {
-        return likeService.addLike(imageId);
+    public LikeResponse addLike(LikeRequest likeRequest) {
+        return likeService.toggleLike(likeRequest);
     }
 
     @GetMapping
-    public LikesResponse getLike(@RequestParam List<String> imageIds) {
-        return likeService.getLike(imageIds);
+    public LikesResponse searchLikes(LikesRequest likesRequest) {
+        return likeService.searchLikes(likesRequest);
     }
 }

@@ -1,12 +1,12 @@
 package com.woody.woodycameraapi.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.woody.woodycameraapi.entity.LikeEntity;
 import com.woody.woodycameraapi.entity.LikeItem;
 import com.woody.woodycameraapi.entity.LikesResponse;
+import com.woody.woodycameraapi.model.LikeRequest;
 import com.woody.woodycameraapi.model.LikeResponse;
-import com.woody.woodycameraapi.util.CosApi;
+import com.woody.woodycameraapi.model.LikesRequest;
+import com.woody.woodycameraapi.repository.LikeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,36 +14,29 @@ import java.util.Optional;
 
 @Service
 public class LikeService {
-    private static final String LIKE_KEY = "database/like.json";
-    private final CosApi cosApi;
+    private final LikeRepository likeRepository;
 
-    public LikeService(CosApi cosApi) {
-        this.cosApi = cosApi;
+    public LikeService(LikeRepository likeRepository) {
+        this.likeRepository = likeRepository;
     }
 
-    public LikeResponse addLike(String imageId) {
-        String result = cosApi.download(LIKE_KEY);
-        LikeEntity like = JSONObject.parseObject(result, LikeEntity.class);
-        Optional<LikeItem> item = like.getLikeItems().stream().filter(it -> it.getImageId().equals(imageId)).findFirst();
-        int count = 0;
-        if (item.isPresent()) {
-            item.get().addOne();
-            count = item.get().getCount();
+    public LikesResponse searchLikes(LikesRequest likesRequest) {
+        List<LikeEntity> likeEntities = likeRepository.findAllByImageIdIn(likesRequest.getImageIds());
+        List<LikeItem> items = likesRequest.getImageIds().stream().map(it -> new LikeItem(it, likeEntities.stream().filter(entity -> entity.getImageId().equals(it)).count())).toList();
+        return LikesResponse.builder().imageItems(items).build();
+    }
+
+    public LikeResponse toggleLike(LikeRequest likeRequest) {
+        Optional<LikeEntity> likeEntity = likeRepository.findByUserIdAndImageId(likeRequest.getUserId(), likeRequest.getImageId());
+        if (likeEntity.isPresent()) {
+            likeRepository.delete(likeEntity.get());
+            return new LikeResponse();
         } else {
-            LikeItem newItem = new LikeItem();
-            newItem.setCount(1);
-            newItem.setImageId(imageId);
-            like.getLikeItems().add(newItem);
-            count = newItem.getCount();
+            LikeEntity newLike = new LikeEntity();
+            newLike.setUserId(likeRequest.getUserId());
+            newLike.setImageId(likeRequest.getImageId());
+            LikeEntity saved = likeRepository.save(newLike);
+            return new LikeResponse(saved.getUserId(), saved.getImageId());
         }
-        cosApi.upload(JSON.toJSONString(like), LIKE_KEY);
-        return LikeResponse.builder().count(count).imageId(imageId).build();
-    }
-
-    public LikesResponse getLike(List<String> imageIds) {
-        String result = cosApi.download(LIKE_KEY);
-        LikeEntity like = JSONObject.parseObject(result, LikeEntity.class);
-        List<LikeItem> likeItems = like.getLikeItems().stream().filter(it -> imageIds.contains(it.getImageId())).toList();
-        return LikesResponse.builder().imageItems(likeItems).build();
     }
 }

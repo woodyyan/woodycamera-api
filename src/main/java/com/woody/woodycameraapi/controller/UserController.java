@@ -3,10 +3,8 @@ package com.woody.woodycameraapi.controller;
 import com.woody.woodycameraapi.model.UserRequest;
 import com.woody.woodycameraapi.model.UserResponse;
 import com.woody.woodycameraapi.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/user")
 public class UserController {
@@ -17,6 +15,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(UserRequest userRequest) {
         return userService.createUser(userRequest);
     }

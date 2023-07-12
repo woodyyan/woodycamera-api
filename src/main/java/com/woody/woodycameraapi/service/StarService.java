@@ -35,4 +35,9 @@ public class StarService {
         List<StarEntity> stars = starRepository.findAllByUserId(userId);
         return new StarsResponse(userId, stars.stream().map(StarEntity::getImageId).toList());
     }
+
+    public void removeStar(String userId, String imageId) {
+        Optional<StarEntity> starEntity = starRepository.findByUserIdAndImageId(userId, imageId);
+        starEntity.ifPresent(starRepository::delete);
+    }
 }

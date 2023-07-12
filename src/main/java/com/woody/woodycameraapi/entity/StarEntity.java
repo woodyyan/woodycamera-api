@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
-@Table
+@Table(name = "star")
 public class StarEntity {
 
     @Id
