@@ -5,8 +5,10 @@ import com.woody.woodycameraapi.model.LikeRequest;
 import com.woody.woodycameraapi.model.LikeResponse;
 import com.woody.woodycameraapi.model.LikesRequest;
 import com.woody.woodycameraapi.service.LikeService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/like")

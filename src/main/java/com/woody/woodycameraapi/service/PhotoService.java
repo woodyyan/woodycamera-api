@@ -6,7 +6,6 @@ import com.woody.woodycameraapi.model.ModelResponse;
 import com.woody.woodycameraapi.model.PhotoResponse;
 import com.woody.woodycameraapi.repository.ImageRepository;
 import com.woody.woodycameraapi.repository.ModelRepository;
-import com.woody.woodycameraapi.util.CosApi;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,13 +15,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class PhotoService {
-    private static final String PHOTO_KEY = "database/woodycamera.json";
-    private final CosApi cosApi;
     private final ModelRepository modelRepository;
     private final ImageRepository imageRepository;
 
-    public PhotoService(CosApi cosApi, ModelRepository modelRepository, ImageRepository imageRepository) {
-        this.cosApi = cosApi;
+    public PhotoService(ModelRepository modelRepository, ImageRepository imageRepository) {
         this.modelRepository = modelRepository;
         this.imageRepository = imageRepository;
     }
