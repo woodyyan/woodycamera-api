@@ -50,13 +50,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.7.0'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
-	implementation 'com.qcloud:cos_api:5.6.98'
 	implementation group: 'com.alibaba', name: 'fastjson', version: '2.0.12'
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+	implementation group: 'com.h2database', name: 'h2', version: '2.2.220'
 }
 
 tasks.named('test') {
