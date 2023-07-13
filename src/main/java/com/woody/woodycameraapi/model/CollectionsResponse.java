@@ -6,6 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PhotoResponse {
-    private List<ModelResponse> models = new ArrayList<>();
+public class CollectionsResponse {
+    private List<CollectionResponse> collections = new ArrayList<>();
 }

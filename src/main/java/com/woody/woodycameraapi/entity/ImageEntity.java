@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import java.sql.Date;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
@@ -16,6 +18,10 @@ public class ImageEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private Long modelId;
+    private String modelName;
+    private int collectionId;
     private String url;
+    private String tag;
+    private Date date;
+    private String city;
 }

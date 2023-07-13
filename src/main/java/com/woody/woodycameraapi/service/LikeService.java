@@ -1,8 +1,8 @@
 package com.woody.woodycameraapi.service;
 
 import com.woody.woodycameraapi.entity.LikeEntity;
-import com.woody.woodycameraapi.entity.LikeItem;
-import com.woody.woodycameraapi.entity.LikesResponse;
+import com.woody.woodycameraapi.model.LikeItem;
+import com.woody.woodycameraapi.model.LikesResponse;
 import com.woody.woodycameraapi.model.LikeRequest;
 import com.woody.woodycameraapi.model.LikeResponse;
 import com.woody.woodycameraapi.model.LikesRequest;

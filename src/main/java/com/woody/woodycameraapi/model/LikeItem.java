@@ -1,4 +1,4 @@
-package com.woody.woodycameraapi.entity;
+package com.woody.woodycameraapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

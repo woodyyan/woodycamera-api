@@ -1,9 +1,8 @@
-package com.woody.woodycameraapi.entity;
+package com.woody.woodycameraapi.model;
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
