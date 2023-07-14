@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class CollectionResponse {
-    private List<String> urls = new ArrayList<>();
+    private List<PhotoItem> urls = new ArrayList<>();
     private String modelName;
     private String city;
     private List<String> tags = new ArrayList<>();

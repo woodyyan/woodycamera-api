@@ -13,15 +13,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
-@Table(name = "image")
-public class ImageEntity {
+@Table(name = "photo")
+public class PhotoEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String modelName;
     private int collectionId;
     private String url;
-    private String tag;
+    private String tags;
     private Date date;
     private String city;
 }
