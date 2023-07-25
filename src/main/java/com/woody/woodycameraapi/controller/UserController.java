@@ -25,4 +25,9 @@ public class UserController {
     public UserResponse getUser(@PathVariable String userId) {
         return userService.getUser(userId);
     }
+
+    @GetMapping("/{userId}")
+    public UserResponse getUserOrder(@PathVariable String userId) {
+        return userService.getUser(userId);
+    }
 }

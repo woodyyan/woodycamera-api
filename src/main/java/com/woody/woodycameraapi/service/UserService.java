@@ -26,7 +26,7 @@ public class UserService {
             CameraUserEntity existing = userEntity.get();
             existing.setUpdatedTime(DateTime.now());
             userRepository.save(existing);
-            return new UserResponse(userRequest.getEmail(), userRequest.getFamilyName(), userRequest.getGivenName(), userRequest.getUserId());
+            return new UserResponse(userRequest.getEmail(), userRequest.getFamilyName(), userRequest.getGivenName(), userRequest.getUserId(), existing.getCreatedTime(), existing.getUpdatedTime());
         } else {
             CameraUserEntity newUser = new CameraUserEntity();
             newUser.setUserId(userRequest.getUserId());
@@ -36,7 +36,7 @@ public class UserService {
             newUser.setUpdatedTime(DateTime.now());
             newUser.setCreatedTime(DateTime.now());
             CameraUserEntity savedUser = userRepository.save(newUser);
-            return new UserResponse(savedUser.getEmail(), savedUser.getFamilyName(), savedUser.getGivenName(), savedUser.getUserId());
+            return new UserResponse(savedUser.getEmail(), savedUser.getFamilyName(), savedUser.getGivenName(), savedUser.getUserId(), savedUser.getCreatedTime(), savedUser.getUpdatedTime());
         }
     }
 
@@ -44,7 +44,7 @@ public class UserService {
         Optional<CameraUserEntity> entity = userRepository.findByUserId(userId);
         if (entity.isPresent()) {
             CameraUserEntity user = entity.get();
-            return new UserResponse(user.getEmail(), user.getFamilyName(), user.getGivenName(), user.getUserId());
+            return new UserResponse(user.getEmail(), user.getFamilyName(), user.getGivenName(), user.getUserId(), user.getCreatedTime(), user.getUpdatedTime());
         }
         throw new ErrorException(HttpStatus.NOT_FOUND, new Error("Not Found", "User Id Not Found"));
     }
