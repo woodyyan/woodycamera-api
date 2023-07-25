@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import java.sql.Date;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
@@ -21,4 +23,6 @@ public class CameraUserEntity {
     private String familyName;
     private String givenName;
     private String userId;
+    private Date createdDate;
+    private Date updatedDate;
 }

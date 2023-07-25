@@ -9,6 +9,7 @@ import com.woody.woodycameraapi.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.Optional;
 
 @Service
@@ -23,10 +24,7 @@ public class UserService {
         Optional<CameraUserEntity> userEntity = userRepository.findByUserId(userRequest.getUserId());
         if (userEntity.isPresent()) {
             CameraUserEntity existing = userEntity.get();
-            existing.setUserId(userRequest.getUserId());
-            existing.setEmail(userRequest.getEmail());
-            existing.setFamilyName(userRequest.getFamilyName());
-            existing.setGivenName(userRequest.getGivenName());
+            existing.setUpdatedDate(new Date(System.currentTimeMillis()));
             userRepository.save(existing);
             return new UserResponse(userRequest.getEmail(), userRequest.getFamilyName(), userRequest.getGivenName(), userRequest.getUserId());
         } else {
@@ -35,6 +33,8 @@ public class UserService {
             newUser.setEmail(userRequest.getEmail());
             newUser.setFamilyName(userRequest.getFamilyName());
             newUser.setGivenName(userRequest.getGivenName());
+            newUser.setUpdatedDate(new Date(System.currentTimeMillis()));
+            newUser.setCreatedDate(new Date(System.currentTimeMillis()));
             CameraUserEntity savedUser = userRepository.save(newUser);
             return new UserResponse(savedUser.getEmail(), savedUser.getFamilyName(), savedUser.getGivenName(), savedUser.getUserId());
         }
