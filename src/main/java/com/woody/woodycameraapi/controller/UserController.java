@@ -6,7 +6,8 @@ import com.woody.woodycameraapi.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
