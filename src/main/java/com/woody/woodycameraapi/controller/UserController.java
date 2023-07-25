@@ -1,5 +1,6 @@
 package com.woody.woodycameraapi.controller;
 
+import com.woody.woodycameraapi.model.UserInfoResponse;
 import com.woody.woodycameraapi.model.UserRequest;
 import com.woody.woodycameraapi.model.UserResponse;
 import com.woody.woodycameraapi.service.UserService;
@@ -26,8 +27,8 @@ public class UserController {
         return userService.getUser(userId);
     }
 
-    @GetMapping("/{userId}")
-    public UserResponse getUserOrder(@PathVariable String userId) {
-        return userService.getUser(userId);
+    @GetMapping("/{userId}/info")
+    public UserInfoResponse getUserInfo(@PathVariable String userId) {
+        return userService.getUserInfo(userId);
     }
 }

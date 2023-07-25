@@ -9,11 +9,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
-    private String email;
-    private String familyName;
-    private String givenName;
+public class UserInfoResponse {
     private String userId;
+    private long days;
+    private int number;
     private LocalDateTime createdTime;
-    private LocalDateTime updatedTime;
 }

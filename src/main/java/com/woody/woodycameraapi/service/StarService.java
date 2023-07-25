@@ -5,9 +5,9 @@ import com.woody.woodycameraapi.model.StarRequest;
 import com.woody.woodycameraapi.model.StarResponse;
 import com.woody.woodycameraapi.model.StarsResponse;
 import com.woody.woodycameraapi.repository.StarRepository;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +28,8 @@ public class StarService {
             StarEntity newStar = new StarEntity();
             newStar.setUserId(starRequest.getUserId());
             newStar.setImageId(starRequest.getImageId());
-            newStar.setCreatedTime(DateTime.now());
-            newStar.setUpdatedTime(DateTime.now());
+            newStar.setCreatedTime(LocalDateTime.now());
+            newStar.setUpdatedTime(LocalDateTime.now());
             StarEntity saved = starRepository.save(newStar);
             return new StarResponse(saved.getUserId(), saved.getImageId());
         }

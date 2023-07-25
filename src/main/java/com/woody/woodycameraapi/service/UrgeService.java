@@ -5,10 +5,10 @@ import com.woody.woodycameraapi.exception.Error;
 import com.woody.woodycameraapi.exception.ErrorException;
 import com.woody.woodycameraapi.model.UrgeResponse;
 import com.woody.woodycameraapi.repository.UrgeRepository;
-import org.joda.time.DateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -25,14 +25,14 @@ public class UrgeService {
         if (urgeEntity.isPresent()) {
             UrgeEntity urge = urgeEntity.get();
             urge.setCount(urge.getCount() + 1);
-            urge.setUpdatedTime(DateTime.now());
+            urge.setUpdatedTime(LocalDateTime.now());
             UrgeEntity saved = urgeRepository.save(urge);
             return new UrgeResponse(saved.getCount());
         } else {
             UrgeEntity urge = new UrgeEntity();
             urge.setCount(1);
-            urge.setUpdatedTime(DateTime.now());
-            urge.setCreatedTime(DateTime.now());
+            urge.setUpdatedTime(LocalDateTime.now());
+            urge.setCreatedTime(LocalDateTime.now());
             urge.setUrgedPhotographer(URGED_PHOTOGRAPHER);
             UrgeEntity saved = urgeRepository.save(urge);
             return new UrgeResponse(saved.getCount());
@@ -44,7 +44,7 @@ public class UrgeService {
         if (urgeEntity.isPresent()) {
             UrgeEntity urge = urgeEntity.get();
             urge.setCount(0);
-            urge.setUpdatedTime(DateTime.now());
+            urge.setUpdatedTime(LocalDateTime.now());
             UrgeEntity saved = urgeRepository.save(urge);
             return new UrgeResponse(saved.getCount());
         }
