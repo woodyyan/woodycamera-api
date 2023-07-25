@@ -18,7 +18,7 @@ public class StarController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StarResponse addStar(StarRequest starRequest) {
+    public StarResponse addStar(@RequestBody StarRequest starRequest) {
         return starService.addStar(starRequest);
     }
 
