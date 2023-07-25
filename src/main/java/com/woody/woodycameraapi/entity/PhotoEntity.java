@@ -1,6 +1,7 @@
 package com.woody.woodycameraapi.entity;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,4 +25,6 @@ public class PhotoEntity {
     private String tags;
     private Date date;
     private String city;
+    private DateTime createdTime;
+    private DateTime updatedTime;
 }

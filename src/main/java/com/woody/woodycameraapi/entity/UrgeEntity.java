@@ -1,6 +1,7 @@
 package com.woody.woodycameraapi.entity;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,8 @@ public class UrgeEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
     private String urgedPhotographer;
     private int count;
+    private DateTime createdTime;
+    private DateTime updatedTime;
 }

@@ -17,7 +17,7 @@ public class LikeController {
     }
 
     @PostMapping
-    public LikeResponse addLike(@RequestBody LikeRequest likeRequest) {
+    public LikeResponse toggleLike(@RequestBody LikeRequest likeRequest) {
         return likeService.toggleLike(likeRequest);
     }
 

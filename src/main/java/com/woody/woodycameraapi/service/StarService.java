@@ -5,8 +5,10 @@ import com.woody.woodycameraapi.model.StarRequest;
 import com.woody.woodycameraapi.model.StarResponse;
 import com.woody.woodycameraapi.model.StarsResponse;
 import com.woody.woodycameraapi.repository.StarRepository;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,8 @@ public class StarService {
             StarEntity newStar = new StarEntity();
             newStar.setUserId(starRequest.getUserId());
             newStar.setImageId(starRequest.getImageId());
+            newStar.setCreatedTime(DateTime.now());
+            newStar.setUpdatedTime(DateTime.now());
             StarEntity saved = starRepository.save(newStar);
             return new StarResponse(saved.getUserId(), saved.getImageId());
         }
@@ -33,7 +37,7 @@ public class StarService {
 
     public StarsResponse searchStars(String userId) {
         List<StarEntity> stars = starRepository.findAllByUserId(userId);
-        return new StarsResponse(userId, stars.stream().map(StarEntity::getImageId).toList());
+        return new StarsResponse(userId, stars.stream().sorted(Comparator.comparing(StarEntity::getCreatedTime).reversed()).map(StarEntity::getImageId).toList());
     }
 
     public void removeStar(String userId, String imageId) {

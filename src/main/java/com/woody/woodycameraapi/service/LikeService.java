@@ -1,12 +1,9 @@
 package com.woody.woodycameraapi.service;
 
 import com.woody.woodycameraapi.entity.LikeEntity;
-import com.woody.woodycameraapi.model.LikeItem;
-import com.woody.woodycameraapi.model.LikesResponse;
-import com.woody.woodycameraapi.model.LikeRequest;
-import com.woody.woodycameraapi.model.LikeResponse;
-import com.woody.woodycameraapi.model.LikesRequest;
+import com.woody.woodycameraapi.model.*;
 import com.woody.woodycameraapi.repository.LikeRepository;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +32,7 @@ public class LikeService {
             LikeEntity newLike = new LikeEntity();
             newLike.setUserId(likeRequest.getUserId());
             newLike.setImageId(likeRequest.getImageId());
+            newLike.setCreatedTime(DateTime.now());
             LikeEntity saved = likeRepository.save(newLike);
             return new LikeResponse(saved.getUserId(), saved.getImageId());
         }
