@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.woody'
-version = '0.0.2-SNAPSHOT'
+version = "1.0.${new Date().format('yyyyMMddHHmmss')}"
 sourceCompatibility = "16"
 
 docker {
