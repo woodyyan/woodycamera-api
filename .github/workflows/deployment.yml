@@ -34,12 +34,15 @@ jobs:
       with:
         arguments: build
 
-    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
-    # the publishing section of your build.gradle
-    - name: Publish to GitHub Packages
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
       with:
-        arguments: publish
-      env:
-        USERNAME: ${{ github.actor }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: woodycamera-api-${{ github.run_number }}.jar
+        path: build/libs/woodycamera-api-1.0.jar
+
+    - name: Upload to Aliyun ECS
+      uses: aliyun/aliyun-cli@v3
+      with:
+        args: ecs upload-file --region cn-hangzhou --instance-id i-bp1ds61ad4fgnv8t1tv7 --remote-path /apps/boot --local-path build/libs/woodycamera-api-${{ github.run_number }}.jar
+        access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+        access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
